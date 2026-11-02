@@ -3,13 +3,15 @@ import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'reac
 import { StatusBar } from 'expo-status-bar'
 import Constants from 'expo-constants'
 import { randomUUID } from 'expo-crypto'
+import { getItem, setItem } from 'expo-secure-store'
 import { rankOf, suitOf, SUITS, type Action, type BidValue, type Card, type Seat, type Suit, type View as GameView } from '@belote/engine'
 
 // In dev, the game server runs on the same machine as the Expo dev server.
 const SERVER_URL =
   process.env.EXPO_PUBLIC_SERVER_URL ?? `ws://${(Constants.expoConfig?.hostUri ?? 'localhost').split(':')[0]}:8080`
-// shortcut: identity lives only for this app session; accounts will replace it.
-const PLAYER_ID = randomUUID()
+// shortcut: identity is per device and lost on uninstall; add accounts if players need it across phones.
+const PLAYER_ID = getItem('playerId') ?? randomUUID()
+setItem('playerId', PLAYER_ID)
 
 const SYMBOL: Record<Suit, string> = { S: '♠', H: '♥', D: '♦', C: '♣' }
 const isRed = (s: Suit) => s === 'H' || s === 'D'
