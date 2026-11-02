@@ -1,0 +1,10 @@
+{
+  "name": "@belote/server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@belote/engine": "*",
+    "ws": "^8.22.1"
+  }
+}

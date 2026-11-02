@@ -1,0 +1,9 @@
+{
+  "name": "belote",
+  "private": true,
+  "workspaces": ["engine", "server", "app"],
+  "scripts": {
+    "test": "node --test engine/index.test.ts server/index.test.ts",
+    "server": "node server/index.ts"
+  }
+}
